@@ -2,10 +2,10 @@ import random
 import networkx as nx
 from itertools import permutations
 import math
-from simulation1 import simulate_local_search
+from calculateCost import CalculateCost
 
 def calculate_cost(network, sequence, num_repetitions, Rc, R):
-    return simulate_local_search(network, sequence, num_repetitions, Rc, R)
+    return CalculateCost(network, sequence, num_repetitions, Rc, R)
 
 def simulated_annealing(network, initial_sequence, num_repetitions, Rc, R, initial_temperature, cooling_rate, num_iterations):
     current_sequence = initial_sequence

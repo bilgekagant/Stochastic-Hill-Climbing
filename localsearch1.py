@@ -1,7 +1,5 @@
 from itertools import permutations
-from simulation1 import simulate_local_search
-
-
+from calculateCost import CalculateCost
 
 
 def localSearch(G ,initial_sequence):
@@ -21,7 +19,7 @@ def localSearch(G ,initial_sequence):
     # Perform local search
     for neighborhood in neighborhoods:
         # Simulate the local search algorithm for the sequence in this neighborhood
-        expected_time = simulate_local_search(G, neighborhood, num_repetitions)
+        expected_time = CalculateCost(G, neighborhood, num_repetitions)
 
         # Update the best sequence and expected time if a better option is found
         if expected_time < best_expected_time:

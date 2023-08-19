@@ -1,6 +1,6 @@
 import nodeCreater as nc
 import networkx as nx
-import localsearch1 as ls
+import localsearch as ls
 
 #reusable and expandeble switch-case for "Node enter" selection
 def setTypeFunc(setType, sequence_):
@@ -17,7 +17,8 @@ def setTypeFunc(setType, sequence_):
 def searchType(processType, sequence):
     match processType:
         case "local":
-            ls.localSearch(G, sequence)
+            ls.LocalSearch(G, sequence)
+
 
 # Creates a graph and an empty sequence
 sequenceMain = []

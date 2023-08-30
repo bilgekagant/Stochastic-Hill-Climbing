@@ -6,7 +6,7 @@ def useReadySet(graph, sequence):
     graph.add_node('D', p=0.2, t=4, w=23)
     graph.add_node('E', p=0.1, t=2, w=28)
     graph.add_node('Y', p=0.7, t=6, w=34)
-    sequence = ['X', 'A', 'B', 'C', 'D', 'E', 'Y']
+    sequence = ['X', '1', 'B', 'C', 'D', 'E', 'Y']
     return sequence
 
 def addManual(graph, sequence):

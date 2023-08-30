@@ -17,7 +17,7 @@ def setTypeFunc(setType, sequence_):
 def searchType(processType, sequence):
     match processType:
         case "local":
-            ls.LocalSearch(G, sequence)
+            ls.LocalSearch(G, sequence, 100)
 
 
 # Creates a graph and an empty sequence

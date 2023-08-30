@@ -1,10 +1,15 @@
 import random
 
-def CalculateCost(network, sequence, num_repetitions):
-    total_cost = 0
+# Calculate the expected time spent to visit a network with given sequence. 
+# Inputs: network(given as graph), sequence might change depending on the points will be visited and num of repitations to calculate expected time.
 
-    for _ in range(num_repetitions):
-        total_cost_sequence = 0
+def calculate_Expectedtime(network, sequence, num_Repetitions):
+    # Total time value is adding numOfRepitations many calculated time.
+    total_time = 0
+
+    for _ in range(num_Repetitions):
+        
+        total_time_sequence = 0
         current_node = 'X'  # Start from node X
         previousNode = "X"
 
@@ -13,22 +18,20 @@ def CalculateCost(network, sequence, num_repetitions):
             p = properties['p']
             t = properties['t']
             w = properties['w']
-            total_cost_sequence += w - network.nodes[previousNode]['w'] + t
-            # Check if the current node is working
+            # Update the total time for the given sequence.
+            # Since w - distance from point X to current node, this calculates the distance between previous node - current node.
+            total_time_sequence += w - network.nodes[previousNode]['w'] + t
+            # Check if the current node is working by creating a random value between (0,1)
             if random.random() >= p:
-                total_cost += total_cost_sequence
+                total_time += total_time_sequence
                 break
-            # else:
-                # total_cost_sequence += w - network.nodes[previousNode]['w'] + t
+            # Else - will continue to loop by itself.
+
+            # Update node information based on given sequence.
             previousNode = current_node
             current_node = node
-
-
-        # Check if all nodes in the sequence were visited successfully
-        if current_node == sequence[-1]:
-            total_cost += total_cost_sequence
-
-    expected_time = total_cost / num_repetitions
+    # Expected time calculation.
+    expected_time = total_time / num_Repetitions
     
     # Print the expected time spent to check the entire network
     # print("Expected time:", expected_time)

@@ -1,50 +1,56 @@
-from calculateCost import CalculateCost
-# import pprint
+# Use calculate_Expectedtime function.
+from calculate_Expectedtime import calculate_Expectedtime
 
-def LocalSearch(G, initialSeq):
-    numRepetitions = 100
-    
-    currentCost = CalculateCost(G, initialSeq, numRepetitions)
+def LocalSearch(network, initialSeq, num_Repetitions):
+
+    currentSeq = initialSeq.copy()
+    currentCost = calculate_Expectedtime(network, currentSeq, num_Repetitions)
+
     print("Current Cost is: ", currentCost)
 
-    improvedSeq, improvedCost = SwapSequence(G, initialSeq, numRepetitions)
-    numberOfSwap = 0
-    while currentCost > improvedCost and improvedSeq != (initialSeq or currentSeq):
+    numberOfSwap = 1
+
+    swappedBestSeq, swappedBestCost = SwapSequence(network, currentSeq, num_Repetitions)
+
+    while currentCost > swappedBestCost and swappedBestSeq != (initialSeq or currentSeq): #esitlik durumu?
+        print("Current Sequence", currentSeq, "Swapped Best Sequence", swappedBestSeq)
+        print("Current Cost: ", currentCost, "Swapper Best Cost", swappedBestCost)
         numberOfSwap += 1
-        currentCost = improvedCost
-        currentSeq = improvedSeq.copy()
-        improvedSeq, improvedCost = SwapSequence(G, improvedSeq, numRepetitions)
+        currentCost = swappedBestCost
+        currentSeq = swappedBestSeq.copy()
+        swappedBestSeq, swappedBestCost = SwapSequence(network, swappedBestSeq, num_Repetitions)
         
     print("Sequences swapped: ", numberOfSwap, "times")
-    print("\nBest sequence: ", improvedSeq)
-    print("Best Expected Cost: ", improvedCost)
+    print("\nBest sequence: ", currentSeq)
+    print("Best Expected Cost: ", currentCost)
 
     
-def SwapSequence (G, initialSeq, numRepetitions):
+def SwapSequence (network, currentSeq, num_Repetitions):
     seqCosts = {}
 
-    improvedCost = float("inf")
-    improvedSeq = None
+    swappedBestCost = float("inf")
+    swappedBestSeq = None
     i = 1
     # For each node except start and finish
-    while i <= len(initialSeq) - 3:
+    while i <= len(currentSeq) - 3:
         j = i + 1
         # switch the node with the nodes after that except finish node
-        while j <= len(initialSeq) - 2:
-            switchedSeq = initialSeq.copy()
+        while j <= len(currentSeq) - 2:
+            switchedSeq = currentSeq.copy()
             
             switchedSeq[i], switchedSeq[j] = switchedSeq[j], switchedSeq[i]
-            switchedCost = CalculateCost(G, switchedSeq, numRepetitions)
+            switchedCost = calculate_Expectedtime(network, switchedSeq, num_Repetitions)
             seqCosts[tuple(switchedSeq)] = switchedCost
             
-            if switchedCost < improvedCost:
-                improvedCost = switchedCost
-                improvedSeq = switchedSeq
+            if switchedCost < swappedBestCost:
+                swappedBestCost = switchedCost
+                swappedBestSeq = switchedSeq
             
             j += 1
         i += 1
-    # print("All the sequences are: \b")
-    # pprint.pprint(seqCosts)
-    # print("\nBest sequence: ", improvedSeq)
-    # print("Best Expected Cost: ", improvedCost)
-    return improvedSeq, improvedCost
+
+    print("All the sequences are: \b")
+    print(seqCosts)
+    print("\nBest sequence: ", swappedBestSeq)
+    print("Best Expected Cost: ", swappedBestCost)
+    return swappedBestSeq, swappedBestCost

@@ -2,7 +2,7 @@ import random
 import networkx as nx
 from itertools import permutations
 import math
-from calculateCost import CalculateCost
+from calculate_Expectedtime import CalculateCost
 
 def calculate_cost(network, sequence, num_repetitions, Rc, R):
     return CalculateCost(network, sequence, num_repetitions, Rc, R)

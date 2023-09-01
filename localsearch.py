@@ -12,7 +12,7 @@ def LocalSearch(network, initialSeq, num_Repetitions):
 
     swappedBestSeq, swappedBestCost = SwapSequence(network, currentSeq, num_Repetitions)
 
-    while currentCost > swappedBestCost and swappedBestSeq != (initialSeq or currentSeq): #esitlik durumu?
+    while currentCost > swappedBestCost and swappedBestSeq != (initialSeq or currentSeq): #esitlik durumu? devam edelim - running time ekle. data mantikli mi nasil olsun? kod yazalim mi?
         print("Current Sequence", currentSeq, "Swapped Best Sequence", swappedBestSeq)
         print("Current Cost: ", currentCost, "Swapper Best Cost", swappedBestCost)
         numberOfSwap += 1
@@ -24,6 +24,8 @@ def LocalSearch(network, initialSeq, num_Repetitions):
     print("\nBest sequence: ", currentSeq)
     print("Best Expected Cost: ", currentCost)
 
+#local searchte durma conditioni tum neighborlar daha kotuyse duruyoruz simulated annealingde tum komsular meesla kotu onlarin en iyisini aliyoruz local da dururdum burda devam ediyorum 110lugu e...  (110-100) delta etmperatureda ben bir sey atadim
+# ihtimalle kab ul ediyorsun.
     
 def SwapSequence (network, currentSeq, num_Repetitions):
     seqCosts = {}

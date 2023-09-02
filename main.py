@@ -2,6 +2,7 @@ import nodeCreater as nc
 import networkx as nx
 import localsearch as ls
 import localsearch_permutation as lsp
+import simulatedAnnealing.simulatedannealingNew as sa
 
 # Reusable and expandeble switch-case for "Node enter" selection
 def setTypeFunc(setType, sequence_):
@@ -39,6 +40,9 @@ def searchType(processType, sequence):
         case "local permutation":
             lsp.LocalSearchPermutation(G, sequence, 1000)
 
+        case "sa":
+            sa.SimulatedAnnealing(G, sequence, 1000, 1000, 0.995, 10000)
+
 # Creates a graph and an empty sequence
 sequenceMain = []
 G = nx.Graph()
@@ -48,7 +52,7 @@ setType = input("Do you want to use ready set or add nodes manually. If you want
 sequenceMain = setTypeFunc(setType, sequenceMain)
 
 # Chooses type of search
-processType = input("What do you want to perform (for local search type: local or for permutational local search type: local permutation) - ")
+processType = input("What do you want to perform (for local search type: local, for permutational local search type: local permutation, for simulated annealing type: sa) - ")
 searchType(processType, sequenceMain)
 
 # Asks if the user want to continue

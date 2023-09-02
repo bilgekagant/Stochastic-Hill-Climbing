@@ -12,7 +12,7 @@ def LocalSearch(network, initialSeq, num_Repetitions):
 
     swappedBestSeq, swappedBestCost = SwapSequence(network, currentSeq, num_Repetitions)
 
-    while currentCost > swappedBestCost and swappedBestSeq != (initialSeq or currentSeq):
+    while currentCost >= swappedBestCost and swappedBestSeq != (initialSeq or currentSeq):
         print("Current Sequence", currentSeq, "Swapped Best Sequence", swappedBestSeq)
         print("Current Cost: ", currentCost, "Swapper Best Cost", swappedBestCost)
         numberOfSwap += 1

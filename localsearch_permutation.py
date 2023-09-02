@@ -5,6 +5,7 @@ from calculate_Expectedtime import calculate_Expectedtime
 def LocalSearchPermutation(network, initialSeq, num_Repetitions):
 
     # Generate all possible neighborhoods by permuting the initial sequence
+    nodesBetween = initialSeq[1:-1].copy()
     neighborhoods = [list(p) for p in permutations(initialSeq)]
 
     best_expected_time = float('inf')

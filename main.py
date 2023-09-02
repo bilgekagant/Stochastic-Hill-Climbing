@@ -2,7 +2,7 @@ import nodeCreater as nc
 import networkx as nx
 import localsearch as ls
 import localsearch_permutation as lsp
-import simulatedAnnealing.simulatedannealingNew as sa
+import simulatedAnnealingNew as sa
 
 # Reusable and expandeble switch-case for "Node enter" selection
 def setTypeFunc(setType, sequence_):
@@ -33,15 +33,16 @@ def setTypeFunc(setType, sequence_):
 
 #Reusable and expandeble switch-case for "type of search" selection
 def searchType(processType, sequence):
+    numOfIteration = input("Enter the number of iteration")
     match processType:
         case "local":
-            ls.LocalSearch(G, sequence, 1000)
+            ls.LocalSearch(G, sequence, numOfIteration)
 
         case "local permutation":
-            lsp.LocalSearchPermutation(G, sequence, 1000)
+            lsp.LocalSearchPermutation(G, sequence, numOfIteration)
 
         case "sa":
-            sa.SimulatedAnnealing(G, sequence, 1000, 1000, 0.995, 10000)
+            sa.SimulatedAnnealing(G, sequence, numOfIteration, 1000, 0.995, 10000)
 
 # Creates a graph and an empty sequence
 sequenceMain = []

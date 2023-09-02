@@ -3,6 +3,7 @@ from calculate_Expectedtime import calculate_Expectedtime
 from localsearch import SwapSequence
 import numpy as np
 
+
 def SimulatedAnnealing(network, initialSeq, num_Repetitions, initialTemp, coolingRate, maxIterations):
     currentSeq = initialSeq.copy()
     currentCost = calculate_Expectedtime(network, currentSeq, num_Repetitions)

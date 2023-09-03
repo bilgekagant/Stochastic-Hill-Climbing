@@ -33,7 +33,7 @@ def setTypeFunc(setType, sequence_):
 
 #Reusable and expandeble switch-case for "type of search" selection
 def searchType(processType, sequence):
-    numOfIteration = input("Enter the number of iteration")
+    numOfIteration = int(input("Enter the number of iteration"))
     match processType:
         case "local":
             ls.LocalSearch(G, sequence, numOfIteration)

@@ -30,14 +30,11 @@ def SimulatedAnnealing(network, initialSeq, num_Repetitions, initialTemp, coolin
         
         temperature *= coolingRate
         iteration += 1
-    
+
+
     print("Best sequence: ", bestSeq)
     print("Best Expected Cost: ", bestCost)
     return bestSeq, bestCost
 
 # ... The SwapSequence function remains unchanged ...
 
-# Example usage:
-initialTemp = 1000
-coolingRate = 0.995
-maxIterations = 10000

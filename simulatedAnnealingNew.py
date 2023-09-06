@@ -5,6 +5,7 @@ import numpy as np
 
 
 def SimulatedAnnealing(network, initialSeq, num_Repetitions, initialTemp, coolingRate, maxIterations):
+    #SimulatedAnnealing(G, sequence, numOfIteration, 1000, 0.8, 10000)
     currentSeq = initialSeq.copy()
     currentCost = calculate_Expectedtime(network, currentSeq, num_Repetitions)
     bestSeq = currentSeq.copy()

@@ -15,9 +15,7 @@ def SimulatedAnnealing(network, initialSeq, num_Repetitions, initialTemp, coolin
 
     evaluationFunction = lambda seq: calculate_Expectedtime(network, seq, num_Repetitions)
 
-
     while temperature > stopTemp: #stop condition - temperature < StopCondition
-       
         # it is going swap "tempIteration" time for each temprature
         i = 0
         while i < tempIteration:
@@ -36,8 +34,8 @@ def SimulatedAnnealing(network, initialSeq, num_Repetitions, initialTemp, coolin
                     currentCost = swappedCost
                     currentSeq = swappedSeq.copy()
             i += 1
-            
-
+        print("temperature", temperature)
+        print("current", currentSeq, currentCost)  
         temperature *= coolingRate # changes temprature by multiplying itself with cooling rate
 
 

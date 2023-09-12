@@ -43,6 +43,7 @@ def searchType(processType, sequence):
 
         case "sa":
             sa.SimulatedAnnealing(G, sequence, numOfIteration, 1000, 0.8, 100, 10)
+            #SimulatedAnnealing(network, initialSeq, num_Repetitions, initialTemp, coolingRate, tempIteration, stopTemp):
 
 # Creates a graph and an empty sequence
 sequenceMain = []

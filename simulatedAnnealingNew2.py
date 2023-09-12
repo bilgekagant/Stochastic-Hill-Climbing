@@ -36,6 +36,7 @@ def SimulatedAnnealing(network, initialSeq, num_Repetitions, initialTemp, coolin
             i += 1
         print("temperature", temperature)
         print("current", currentSeq, currentCost)  
+        print("best", bestCost)  
         temperature *= coolingRate # changes temprature by multiplying itself with cooling rate
 
 

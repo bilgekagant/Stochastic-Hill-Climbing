@@ -2,7 +2,7 @@ import nodeCreater as nc
 import networkx as nx
 import localsearch as ls
 import localsearch_permutation as lsp
-import simulatedAnnealingNew2 as sa
+import simulatedAnnealingNew as sa
 
 # Reusable and expandeble switch-case for "Node enter" selection
 def setTypeFunc(setType, sequence_):

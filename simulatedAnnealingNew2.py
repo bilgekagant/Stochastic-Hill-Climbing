@@ -1,46 +1,60 @@
 import math
 from calculate_Expectedtime import calculate_Expectedtime
-from localsearch import SwapSequence
 import numpy as np
+import random
 
 
-def SimulatedAnnealing(network, initialSeq, num_Repetitions, initialTemp, coolingRate, tempIteration, StopCondition):
-    #SimulatedAnnealing(G, sequence, numOfIteration, 1000, 0.8, 10000)
+def SimulatedAnnealing(network, initialSeq, num_Repetitions, initialTemp, coolingRate, tempIteration, stopTemp):
     currentSeq = initialSeq.copy()
     currentCost = calculate_Expectedtime(network, currentSeq, num_Repetitions)
+    
     bestSeq = currentSeq.copy()
     bestCost = currentCost
 
     temperature = initialTemp
 
-    iteration = 0
-    while iteration < maxIterations: #stop condition - temperature < StopCondition
-       
-       #bir temperature ile 100 kere bu islemi yap --- asagidaki 
-        swappedSeq, swappedCost = SwapSequence(network, currentSeq, num_Repetitions)  #swap fonksiyonu degiscek. AnnealingSwapSequence - iki random sayi belirledim sequencin uzunluguna bagli olarak sonra o sayilardaki indexi degistirdim. bir kere swap etmis oldum.
+    evaluationFunction = lambda seq: calculate_Expectedtime(network, seq, num_Repetitions)
 
-        if swappedCost < currentCost:
-            currentCost = swappedCost
-            currentSeq = swappedSeq.copy()
-            if swappedCost < bestCost:
-                bestSeq = swappedSeq.copy()
-                bestCost = swappedCost
-        else:
-            deltaCost = swappedCost - currentCost
-            if math.exp(-deltaCost / temperature) > np.random.rand():
+
+    while temperature > stopTemp: #stop condition - temperature < StopCondition
+       
+        # it is going swap "tempIteration" time for each temprature
+        i = 0
+        while i < tempIteration:
+            #swap fonksiyonu degiscek. AnnealingSwapSequence - iki random sayi belirledim sequencin 
+            # uzunluguna bagli olarak sonra o sayilardaki indexi degistirdim. bir kere swap etmis oldum.
+            swappedSeq, swappedCost = AnnealingSwap(network, currentSeq, num_Repetitions)
+            if evaluationFunction(swappedSeq) < evaluationFunction(currentSeq):
                 currentCost = swappedCost
                 currentSeq = swappedSeq.copy()
-        
-        # yeni temperature'a gecene kadar 
+                if swappedCost < bestCost:
+                    bestSeq = swappedSeq.copy()
+                    bestCost = swappedCost
+            else:
+                deltaCost = evaluationFunction(swappedSeq) - evaluationFunction(currentSeq)
+                if math.exp(-deltaCost / temperature) > np.random.rand():
+                    currentCost = swappedCost
+                    currentSeq = swappedSeq.copy()
+            i += 1
+            
 
+        temperature *= coolingRate # changes temprature by multiplying itself with cooling rate
 
-        temperature *= coolingRate # temperature degisiyor burada.
-        iteration += 1
 
 
     print("Best sequence: ", bestSeq)
     print("Best Expected Cost: ", bestCost)
     return bestSeq, bestCost
 
-# ... The SwapSequence function remains unchanged ...
+def AnnealingSwap(G, currentSeq, numRep):
+    i = random.randrange(1, len(currentSeq)-1)
+    j = random.randrange(1, len(currentSeq)-1)
+    while i == j:
+        j = random.randrange(1, len(currentSeq)-1)
+    swappedSeq = currentSeq.copy()
+    swappedSeq[i], swappedSeq[j] = swappedSeq[j], swappedSeq[i]
+
+    swappedCost = calculate_Expectedtime(G, swappedSeq, numRep)
+
+    return swappedSeq, swappedCost
 

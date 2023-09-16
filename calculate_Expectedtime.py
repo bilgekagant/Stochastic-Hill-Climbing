@@ -11,16 +11,20 @@ def calculate_Expectedtime(network, sequence, num_Repetitions):
         
         total_time_sequence = 0
         current_node = 'X'  # Start from node X
-        previousNode = "X"
 
         for node in sequence:
             properties = network.nodes[node]
             p = properties['p']
             t = properties['t']
             w = properties['w']
+            
             # Update the total time for the given sequence.
             # Since w - distance from point X to current node, this calculates the distance between previous node - current node.
-            total_time_sequence += w - network.nodes[previousNode]['w'] + t
+            distancePrevious = network.nodes[current_node]['w']
+            distanceNow = w
+            distance = abs(distanceNow - distancePrevious)
+            total_time_sequence += distance + t
+            
             # Check if the current node is working by creating a random value between (0,1)
             if random.random() >= p:
                 total_time += total_time_sequence
@@ -28,8 +32,8 @@ def calculate_Expectedtime(network, sequence, num_Repetitions):
             # Else - will continue to loop by itself.
 
             # Update node information based on given sequence.
-            previousNode = current_node
             current_node = node
+
     # Expected time calculation.
     expected_time = total_time / num_Repetitions
     

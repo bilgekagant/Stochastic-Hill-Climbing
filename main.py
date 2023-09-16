@@ -2,7 +2,8 @@ import nodeCreater as nc
 import networkx as nx
 import localsearch as ls
 import localsearch_permutation as lsp
-import simulatedAnnealingNew2 as sa
+import simulatedAnnealingNew as sa1
+import simulatedAnnealingNew2 as sa2
 
 # Reusable and expandeble switch-case for "Node enter" selection
 def setTypeFunc(setType, sequence_):
@@ -41,8 +42,12 @@ def searchType(processType, sequence):
         case "local p":
             lsp.LocalSearchPermutation(G, sequence, numOfIteration)
 
-        case "sa":
-            sa.SimulatedAnnealing(G, sequence, numOfIteration, 1000, 0.8, 100, 10)
+        case "sa1":
+            sa1.SimulatedAnnealing(G, sequence, numOfIteration, 1000, 0.8, 1000)
+            #SimulatedAnnealing(network, initialSeq, num_Repetitions, initialTemp, coolingRate, tempIteration, stopTemp):
+
+        case "sa2":
+            sa2.SimulatedAnnealing(G, sequence, numOfIteration, 1000, 0.8, 100, 10)
             #SimulatedAnnealing(network, initialSeq, num_Repetitions, initialTemp, coolingRate, tempIteration, stopTemp):
 
 # Creates a graph and an empty sequence
@@ -50,28 +55,25 @@ sequenceMain = []
 G = nx.Graph()
 
 # Chooses between use ready set or add nodes manually (use/add)
-setType = input("Do you want to use ready set or add nodes manually. If you want to use ready set please enter the size (type: use size {5,10,15,20,30} OR add) - ")
+setType = input("If you want to use ready set please enter the size (type: use size {5,10,15,20,30} OR add) - ")
 sequenceMain = setTypeFunc(setType, sequenceMain)
 
 # Chooses type of search
-processType = input("What do you want to perform (for local search type: local\n"
-                    "for permutational local search type: local p\n" 
-                    "for simulated annealing type: sa)")
+processType = input("What do you want to perform (for local search type: local,\n "
+                    "for permutational local search type: local p,\n " 
+                    "for simulated annealing 1 type: sa1,\n "
+                    "for simulated annealing 2 type: sa2) ")
 searchType(processType, sequenceMain)
 
 # Asks if the user want to continue
 willContinue = int(input("Do you want to perform something else?\n"  
-                     "1: yes, repeat last local search process\n " 
-                     "2: Yes, I want to add additional nodes to existing network\n "  
-                     "3: no, finish the program "))
-while willContinue != 3:
+                     "1: yes, repeat last performed algorithm\n "
+                     "2: no, finish the program "))
+while willContinue != 2:
     match willContinue:
         case 1:
             searchType(processType, sequenceMain)
-        case 2:
-            setTypeFunc("add", sequenceMain)
 
     willContinue = int(input("Do you want to perform something else?\n "   
-                     "1: yes, repeat last local search process\n "  
-                     "2: Yes, I want to add additional nodes to existing network\n "   
-                     "3: no, finish the program "))
+                     "1: yes, repeat last performed algorithm\n "
+                     "2: no, finish the program "))

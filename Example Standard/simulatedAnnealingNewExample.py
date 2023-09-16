@@ -1,8 +1,11 @@
 import math
-from calculate_Expectedtime import calculate_Expectedtime
-from localsearch import SwapSequence
+from calculate_ExpectedtimeExample import calculate_Expectedtime
+from localsearchExample import SwapSequence
+import numpy as np
+
 
 def SimulatedAnnealing(network, initialSeq, num_Repetitions, initialTemp, coolingRate, maxIterations):
+    #SimulatedAnnealing(G, sequence, numOfIteration, 1000, 0.8, 10000)
     currentSeq = initialSeq.copy()
     currentCost = calculate_Expectedtime(network, currentSeq, num_Repetitions)
     bestSeq = currentSeq.copy()
@@ -28,14 +31,11 @@ def SimulatedAnnealing(network, initialSeq, num_Repetitions, initialTemp, coolin
         
         temperature *= coolingRate
         iteration += 1
-    
+
+
     print("Best sequence: ", bestSeq)
     print("Best Expected Cost: ", bestCost)
     return bestSeq, bestCost
 
 # ... The SwapSequence function remains unchanged ...
 
-# Example usage:
-initialTemp = 1000
-coolingRate = 0.995
-maxIterations = 10000

@@ -1,30 +1,43 @@
 # Use calculate_Expectedtime function.
-from calculate_ExpectedtimeExample import calculate_Expectedtime
+from calculate_ExpectedtimeWithChargingExample import calculate_Expectedtime
 
-def LocalSearch(network, initialSeq, num_Repetitions):
+def LocalSearch(network, initialSeq, num_Repetitions, C):
 
     currentSeq = initialSeq.copy()
-    currentCost = calculate_Expectedtime(network, currentSeq, num_Repetitions)
-
+    currentCost = calculate_Expectedtime(network, currentSeq, num_Repetitions, C)
+    
     print("Current Cost is: ", currentCost)
 
     numberOfSwap = 1
 
-    swappedBestSeq, swappedBestCost = SwapSequence(network, currentSeq, num_Repetitions)
+    swappedBestSeq, swappedBestCost = SwapSequence(network, currentSeq, num_Repetitions, C)
+   
 
-    while currentCost >= swappedBestCost and swappedBestSeq != (initialSeq or currentSeq):
+    # Added to avoid loop
+    visitedSequences = set()  # Keep track of sequences we've already seen
+
+    while currentCost >= swappedBestCost and swappedBestSeq != initialSeq and swappedBestSeq != currentSeq:
+
+        # Added to avoid loop
+        # If we've seen this sequence before, break out of the loop
+        if tuple(swappedBestSeq) in visitedSequences:
+            print("Revisiting a previously explored sequence, terminating search.")
+            break
+
+        visitedSequences.add(tuple(currentSeq))  # Add the current sequence to our visited set
+
         print("Current Sequence", currentSeq, "Swapped Best Sequence", swappedBestSeq)
         print("Current Cost: ", currentCost, "Swapper Best Cost", swappedBestCost)
         numberOfSwap += 1
         currentCost = swappedBestCost
         currentSeq = swappedBestSeq.copy()
-        swappedBestSeq, swappedBestCost = SwapSequence(network, swappedBestSeq, num_Repetitions)
+        swappedBestSeq, swappedBestCost = SwapSequence(network, swappedBestSeq, num_Repetitions, C)
         
     print("Sequences swapped: ", numberOfSwap, "times")
     print("\nBest sequence: ", currentSeq)
     print("Best Expected Cost: ", currentCost)
     
-def SwapSequence (network, currentSeq, num_Repetitions):
+def SwapSequence (network, currentSeq, num_Repetitions, C):
     seqCosts = {}
 
     swappedBestCost = float("inf")
@@ -38,7 +51,7 @@ def SwapSequence (network, currentSeq, num_Repetitions):
             switchedSeq = currentSeq.copy()
             
             switchedSeq[i], switchedSeq[j] = switchedSeq[j], switchedSeq[i]
-            switchedCost = calculate_Expectedtime(network, switchedSeq, num_Repetitions)
+            switchedCost = calculate_Expectedtime(network, switchedSeq, num_Repetitions, C)
             seqCosts[tuple(switchedSeq)] = switchedCost
             
             if switchedCost < swappedBestCost:

@@ -1,19 +1,19 @@
 import math
-from calculate_Expectedtime import calculate_Expectedtime
+from calculate_ExpectedtimeWithChargingExample import calculate_Expectedtime
 import numpy as np
 import random
 
 
-def SimulatedAnnealing(network, initialSeq, num_Repetitions, initialTemp, coolingRate, tempIteration, stopTemp):
+def SimulatedAnnealing(network, initialSeq, num_Repetitions, initialTemp, coolingRate, tempIteration, stopTemp, C):
     currentSeq = initialSeq.copy()
-    currentCost = calculate_Expectedtime(network, currentSeq, num_Repetitions)
+    currentCost = calculate_Expectedtime(network, currentSeq, num_Repetitions, C)
     
     bestSeq = currentSeq.copy()
     bestCost = currentCost
 
     temperature = initialTemp
 
-    evaluationFunction = lambda seq: calculate_Expectedtime(network, seq, num_Repetitions)
+    evaluationFunction = lambda seq: calculate_Expectedtime(network, seq, num_Repetitions, C)
 
     while temperature > stopTemp: # Stop condition - temperature < StopCondition
 
@@ -21,7 +21,7 @@ def SimulatedAnnealing(network, initialSeq, num_Repetitions, initialTemp, coolin
         i = 0
         while i < tempIteration:
 
-            swappedSeq, swappedCost = AnnealingSwap(network, currentSeq, num_Repetitions)
+            swappedSeq, swappedCost = AnnealingSwap(network, currentSeq, num_Repetitions, C)
             if evaluationFunction(swappedSeq) < evaluationFunction(currentSeq):
                 currentCost = swappedCost
                 currentSeq = swappedSeq.copy()
@@ -45,7 +45,7 @@ def SimulatedAnnealing(network, initialSeq, num_Repetitions, initialTemp, coolin
     return bestSeq, bestCost
 
 # Swap algorithm for this simulated annealing which takes randomly two index and swap them
-def AnnealingSwap(G, currentSeq, numRep):
+def AnnealingSwap(G, currentSeq, numRep, C):
     i = random.randrange(1, len(currentSeq)-1)
     j = random.randrange(1, len(currentSeq)-1)
     while i == j:
@@ -53,7 +53,7 @@ def AnnealingSwap(G, currentSeq, numRep):
     swappedSeq = currentSeq.copy()
     swappedSeq[i], swappedSeq[j] = swappedSeq[j], swappedSeq[i]
 
-    swappedCost = calculate_Expectedtime(G, swappedSeq, numRep)
+    swappedCost = calculate_Expectedtime(G, swappedSeq, numRep, C)
 
     return swappedSeq, swappedCost
 

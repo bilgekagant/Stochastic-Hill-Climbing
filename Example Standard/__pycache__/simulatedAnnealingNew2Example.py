@@ -1,10 +1,11 @@
-import math
+import math, random, time
 from calculate_ExpectedtimeExample import calculate_Expectedtime
 import numpy as np
-import random
+
 
 
 def SimulatedAnnealing(network, initialSeq, num_Repetitions, initialTemp, coolingRate, tempIteration, stopTemp):
+    startTime = time.time()
     currentSeq = initialSeq.copy()
     currentCost = calculate_Expectedtime(network, currentSeq, num_Repetitions)
     
@@ -42,6 +43,8 @@ def SimulatedAnnealing(network, initialSeq, num_Repetitions, initialTemp, coolin
 
     print("Best sequence: ", bestSeq)
     print("Best Expected Cost: ", bestCost)
+    endTime = time.time()
+    print(f"Local Search function is executed in {(endTime - startTime)*10**3:.03f}ms")
     return bestSeq, bestCost
 
 # Swap algorithm for this simulated annealing which takes randomly two index and swap them

@@ -3,7 +3,7 @@ from calculate_ExpectedtimeWithChargingExample import calculate_Expectedtime
 
 
 def LocalSearchPermutation(network, initialSeq, num_Repetitions, C):
-
+    startTime = time.time()
     # Generate all possible neighborhoods by permuting the initial sequence
     nodesBetween = initialSeq[1:-1]
     neighborhoods = [list(p) for p in permutations(nodesBetween)]
@@ -23,7 +23,8 @@ def LocalSearchPermutation(network, initialSeq, num_Repetitions, C):
     
     best_sequence.insert(0, 'X')
     best_sequence.append('Y')
-
+    endTime = time.time()
     # Print the best sequence and expected time spent to check the entire network
     print("Best sequence:", best_sequence)
     print("Best expected time:", best_expected_time)
+    print(f"Local Search Permutation function is executed in {(endTime - startTime)*10**3:.03f}ms")

@@ -48,8 +48,8 @@ def SwapSequence (network, currentSeq, num_Repetitions):
             j += 1
         i += 1
 
-    print("All the sequences are: \b")
-    print(seqCosts)
-    print("\nBest sequence: ", swappedBestSeq)
-    print("Best Expected Cost: ", swappedBestCost)
+    # print("All the sequences are: \b")
+    # print(seqCosts)
+    # print("\nBest sequence: ", swappedBestSeq)
+    # print("Best Expected Cost: ", swappedBestCost)
     return swappedBestSeq, swappedBestCost

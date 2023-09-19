@@ -1,9 +1,10 @@
 from itertools import permutations
 from calculate_ExpectedtimeExample import calculate_Expectedtime
+import time
 
 
 def LocalSearchPermutation(network, initialSeq, num_Repetitions):
-
+    startTime = time.time()
     # Generate all possible neighborhoods by permuting the initial sequence
     nodesBetween = initialSeq[1:-1]
     neighborhoods = [list(p) for p in permutations(nodesBetween)]
@@ -23,7 +24,8 @@ def LocalSearchPermutation(network, initialSeq, num_Repetitions):
     
     best_sequence.insert(0, 'X')
     best_sequence.append('Y')
-
+    endTime = time.time()
     # Print the best sequence and expected time spent to check the entire network
     print("Best sequence:", best_sequence)
     print("Best expected time:", best_expected_time)
+    print(f"Local Search Permutation function is executed in {(endTime - startTime)*10**3:.03f}ms")

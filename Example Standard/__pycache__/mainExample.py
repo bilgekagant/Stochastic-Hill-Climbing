@@ -71,13 +71,22 @@ searchType(processType, sequenceMain)
 
 # Asks if the user want to continue
 willContinue = int(input("Do you want to perform something else?\n"  
-                     "1: yes, repeat last performed algorithm\n "
-                     "2: no, finish the program "))
-while willContinue != 2:
+                        "1: yes, repeat last performed algorithm\n "
+                        "2: no, finish the program \n"
+                        "3: I want to use another algorithm with the same dataset"))
+while willContinue != 3:
     match willContinue:
         case 1:
+            searchType(processType, sequenceMain)
+        case 2:
+            processType = input("What do you want to perform (for local search type: local,\n "
+                            "for permutational local search type: local p,\n " 
+                            "for simulated annealing 1 type: sa1,\n "
+                            "for simulated annealing 2 type: sa2) ")
             searchType(processType, sequenceMain)
 
     willContinue = int(input("Do you want to perform something else?\n "   
                      "1: yes, repeat last performed algorithm\n "
-                     "2: no, finish the program "))
+                     "2: I want to use another algorithm with the same dataset"
+                     "3: no, finish the program \n"))
+                     

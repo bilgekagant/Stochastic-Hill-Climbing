@@ -26,9 +26,9 @@ def calculate_Expectedtime(network, sequence, num_Repetitions):
             total_time_sequence += distance + t
             
             # Check if the current node is working by creating a random value between (0,1)
-            if random.random() >= p:
-                total_time += total_time_sequence
-                break
+            # if random.random() >= p:
+            #     total_time += total_time_sequence
+            #     break
             # Else - will continue to loop by itself.
 
             # Update node information based on given sequence.

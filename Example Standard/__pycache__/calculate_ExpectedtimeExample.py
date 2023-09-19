@@ -23,8 +23,8 @@ def calculate_Expectedtime(network, sequence, num_Repetitions):
             distanceNow = w
             distance = abs(distanceNow - distancePrevious)
             total_time_sequence += distance + t
-            print("w", distancePrevious, distanceNow, distance)
-            print(sequence)
+            # print("w", distancePrevious, distanceNow, distance)
+            # print(sequence)
 
             # Check if the current node is working by creating a random value between (0,1)
             if r >= p:
@@ -40,5 +40,6 @@ def calculate_Expectedtime(network, sequence, num_Repetitions):
     
     # Print the expected time spent to check the entire network
     # print("Expected time:", expected_time)
+
     return expected_time
 

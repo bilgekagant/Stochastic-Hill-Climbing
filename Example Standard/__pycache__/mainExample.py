@@ -72,8 +72,8 @@ searchType(processType, sequenceMain)
 # Asks if the user want to continue
 willContinue = int(input("Do you want to perform something else?\n"  
                         "1: yes, repeat last performed algorithm\n "
-                        "2: no, finish the program \n"
-                        "3: I want to use another algorithm with the same dataset"))
+                        "2: I want to use another algorithm with the same dataset\n "
+                        "3: no, finish the program "))
 while willContinue != 3:
     match willContinue:
         case 1:
@@ -87,6 +87,6 @@ while willContinue != 3:
 
     willContinue = int(input("Do you want to perform something else?\n "   
                      "1: yes, repeat last performed algorithm\n "
-                     "2: I want to use another algorithm with the same dataset"
-                     "3: no, finish the program \n"))
+                     "2: I want to use another algorithm with the same dataset\n "
+                     "3: no, finish the program "))
                      
